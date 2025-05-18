@@ -1,5 +1,6 @@
 import {techniques_info, class_boosts, weapon_boosts, frame_boosts, barrier_boosts, episode1_monster_data} from "/psobb-data.js";
 
+
 function get_technique_power_per_level(technique_name, technique_level){
     if (technique_level <= 15) {
         return techniques_info[technique_name]["base15"] + techniques_info[technique_name]["growth15"] * (technique_level - 1);
@@ -8,7 +9,7 @@ function get_technique_power_per_level(technique_name, technique_level){
     }
 }
 
-function get_technique_cost_per_level(technique_name, technique_level) {
+function get_technique_cost_per_level(technique_name, technique_level){
     return techniques_info[technique_name]["cost_base"] + techniques_info[technique_name]["cost_growth"] * (technique_level - 1);
 }
 
@@ -16,7 +17,13 @@ function get_boost_if_defined(boost_type, player_data, technique_name){
     return (boost_type[player_data][technique_name] === undefined) ? 0 : boost[boost_type][technique_name];
 }
 
-function get_battle_data(technique_name, technique_level, player_mst, player_class="Class", player_weapon="Weapon", player_frame="Frame", player_barrier="Barrier", player_difficulty="Normal", player_party_type="normal", experience_boost=0.0){
+function get_damage_per_hit(player_mst, technique_base_power, class_boost, weapon_boost, frame_boost, barrier_boost, monsters_data, monster, technique_attr_res){
+    return Math.round((parseInt(player_mst) + technique_base_power) * 0.2 * (1 + class_boost + weapon_boost + frame_boost + barrier_boost) * (100 - monsters_data[monster][technique_attr_res]) / 100);
+}
+
+function get_battle_data(technique_name, tech_level, mst_value, player_class="Class", player_weapon="Weapon", player_frame="Frame", player_barrier="Barrier", player_difficulty="Normal", player_party_type="normal", experience_boost=0.0){
+    let technique_level = parseInt(tech_level);
+    let player_mst = parseInt(mst_value);
     let monsters = [];
     let technique_base_power = get_technique_power_per_level(technique_name, technique_level);
     let technique_cost = get_technique_cost_per_level(technique_name, technique_level);
@@ -29,7 +36,7 @@ function get_battle_data(technique_name, technique_level, player_mst, player_cla
 
     for (let monster in monsters_data){
         let xp_gained = monsters_data[monster]["XP"] * (1.0 + (experience_boost/100));
-        let damage_done = Math.round((player_mst + technique_base_power) * 0.2 * (1 + class_boost + weapon_boost + frame_boost + barrier_boost) * (100 - monsters_data[monster][technique_attr_res]) / 100);
+        let damage_done = get_damage_per_hit(player_mst, technique_base_power, class_boost, weapon_boost, frame_boost, barrier_boost, monsters_data, monster, technique_attr_res);
         let hits_to_kill = (damage_done == 0) ? Infinity : Math.ceil(monsters_data[monster]["HP"] / damage_done);
         let xp_each_cast = (hits_to_kill == Infinity) ? 0 : (xp_gained / hits_to_kill).toFixed(2); 
         let cost_each_kill = (hits_to_kill == Infinity) ? Infinity : (technique_cost * hits_to_kill).toFixed(2);
@@ -38,3 +45,71 @@ function get_battle_data(technique_name, technique_level, player_mst, player_cla
     return monsters;
 }
 
+
+function populate_form(){
+    let tech_name_options = document.getElementById("technique-name");
+    let class_options = document.getElementById("player-class");
+    let weapon_options = document.getElementById("player-weapon");
+    let frame_options = document.getElementById("player-frame");
+    let barrier_options = document.getElementById("player-barrier");
+    let difficulty_options = document.getElementById("player-difficulty");
+    let party_options = document.getElementById("party-type");
+
+    document.getElementById("technique-level").value = 1;
+    document.getElementById("mst-value").value = 10;
+    // TODO: Explore a cleaner way to do this
+    for (let tech in techniques_info){
+        tech_name_options.innerHTML += `<option value=${tech}>${tech}</option><br>`;
+    }
+
+    for (let classes in class_boosts){
+        class_options.innerHTML += `<option value=${classes}>${classes}</option><br>`;
+    }
+
+    for (let weapon in weapon_boosts){
+        weapon_options.innerHTML += `<option value=${weapon}>${weapon}</option><br>`;
+    }
+
+    for (let frame in frame_boosts){
+        frame_options.innerHTML += `<option value=${frame}>${frame}</option><br>`;
+    }
+
+    for (let barrier in barrier_boosts){
+        barrier_options.innerHTML += `<option value=${barrier}>${barrier}</option><br>`;
+    }
+
+    for (let difficulty in episode1_monster_data){
+        difficulty_options.innerHTML += `<option value=${difficulty}>${difficulty}</option><br>`;
+    }
+
+    for (let party in episode1_monster_data["Normal"]){
+        party_options.innerHTML += `<option value=${party}>${party}</option><br>`;
+    }
+
+    document.getElementById("calculate-submit").addEventListener("click", calculate_damage)
+}
+
+function calculate_damage(){
+    let tech_name = document.getElementById("technique-name").value;
+    let player_class = document.getElementById("player-class").value;
+    let player_weapon = document.getElementById("player-weapon").value;
+    let player_frame = document.getElementById("player-frame").value;
+    let player_barrier = document.getElementById("player-barrier").value;
+    let player_difficulty = document.getElementById("player-difficulty").value;
+    let player_party = document.getElementById("party-type").value;
+
+    let tech_level = document.getElementById("technique-level");
+    tech_level.value = (tech_level.value < 1) ? 1 : (tech_level.value > 30) ? 30 : tech_level.value;
+
+    let mst_value = document.getElementById("mst-value");
+    mst_value.value = (mst_value.value < 0) ? 0 : mst_value.value;
+    
+    let monster_list = get_battle_data(tech_name, tech_level.value, mst_value.value, player_class, player_weapon, player_frame, player_barrier, player_difficulty, player_party);
+    console.log(monster_list);
+}
+
+if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", populate_form);
+} else {
+    populate_form();
+}
