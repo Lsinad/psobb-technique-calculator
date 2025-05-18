@@ -3,11 +3,80 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>PSOBB Technique Damage Calculator</title>
 </head>
 <body>
-    <p id="test"></p>
     <script type="module" src="/psobb-data.js"></script>
     <script type="module" src="/psobb-functions.js"></script>
+
+    <div class="container">
+        <div class="techcalc">
+            <table>
+                <tr>
+                    <th>Technique Name</th>
+                    <td>
+                        <select id="technique-name"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Technique Level</th>
+                    <td>
+                        <input id="technique-level" type="number"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>MST Value</th>
+                    <td>
+                        <input id="mst-value" type="number"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Class</th>
+                    <td>
+                        <select id="player-class"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Weapon</th>
+                    <td>
+                        <select id="player-weapon"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Frame</th>
+                    <td>
+                        <select id="player-frame"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Barrier</th>
+                    <td>
+                        <select id="player-barrier"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Difficulty</th>
+                    <td>
+                        <select id="player-difficulty"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Party Type</th>
+                    <td>
+                        <select id="party-type"></select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
