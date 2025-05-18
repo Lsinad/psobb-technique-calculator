@@ -40,7 +40,7 @@ function get_battle_data(technique_name, tech_level, mst_value, player_class="Cl
         let hits_to_kill = (damage_done == 0) ? Infinity : Math.ceil(monsters_data[monster]["HP"] / damage_done);
         let xp_each_cast = (hits_to_kill == Infinity) ? 0 : (xp_gained / hits_to_kill).toFixed(2); 
         let cost_each_kill = (hits_to_kill == Infinity) ? Infinity : (technique_cost * hits_to_kill).toFixed(2);
-        monsters.push({monster_name:monster, damage_per_cast:damage_done, hits_required:hits_to_kill, experience_per_kill:xp_gained, experience_per_cast:xp_each_cast, tpcost_per_kill:cost_each_kill});
+        monsters.push({monster_name:monster, monster_hp:monsters_data[monster]["HP"], damage_per_cast:damage_done, hits_required:hits_to_kill, experience_per_kill:xp_gained, experience_per_cast:xp_each_cast, tpcost_per_kill:cost_each_kill});
     }
     return monsters;
 }
@@ -105,7 +105,22 @@ function calculate_damage(){
     mst_value.value = (mst_value.value < 0) ? 0 : mst_value.value;
     
     let monster_list = get_battle_data(tech_name, tech_level.value, mst_value.value, player_class, player_weapon, player_frame, player_barrier, player_difficulty, player_party);
-    console.log(monster_list);
+    display_results(monster_list);
+}
+
+function display_results(monster_list){
+    let results_table = document.getElementById("results-table");
+    results_table.innerHTML = "<tr><th>Monster Name</th><th>HP</th><th>XP</th><th>Damage per Cast</th><th>Hits to Kill</th><th>TP Cost per Kill</th><th>XP per Cast</th></tr>";
+    for (let iteration = 0; iteration < monster_list.length; iteration++){
+        let monster = monster_list[iteration];
+        results_table.innerHTML += `<tr><td>${monster.monster_name}</td><br>` +
+                                   `<td>${monster.monster_hp}</td><br>` +
+                                   `<td>${monster.experience_per_kill}</td><br>` +
+                                   `<td>${monster.damage_per_cast}</td><br>` +
+                                   `<td>${monster.hits_required}</td><br>` +
+                                   `<td>${monster.tpcost_per_kill}</td><br>` +
+                                   `<td>${monster.experience_per_cast}</td><br></tr>`
+    }
 }
 
 if (document.readyState === "loading"){
