@@ -10,7 +10,7 @@ function get_technique_power_per_level(technique_name, technique_level){
 }
 
 function get_technique_cost_per_level(technique_name, technique_level){
-    return techniques_info[technique_name]["cost_base"] + techniques_info[technique_name]["cost_growth"] * (technique_level - 1);
+    return Math.floor(techniques_info[technique_name]["cost_base"] + techniques_info[technique_name]["cost_growth"] * (technique_level - 1));
 }
 
 function get_boost_if_defined(boost_type, player_data, technique_name){
