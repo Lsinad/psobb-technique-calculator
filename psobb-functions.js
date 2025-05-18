@@ -14,14 +14,14 @@ function get_technique_cost_per_level(technique_name, technique_level){
 }
 
 function get_boost_if_defined(boost_type, player_data, technique_name){
-    return (boost_type[player_data][technique_name] === undefined) ? 0 : boost[boost_type][technique_name];
+    return (boost_type[player_data][technique_name] === undefined) ? 0 : boost_type[player_data][technique_name];
 }
 
 function get_damage_per_hit(player_mst, technique_base_power, class_boost, weapon_boost, frame_boost, barrier_boost, monsters_data, monster, technique_attr_res){
     return Math.round((parseInt(player_mst) + technique_base_power) * 0.2 * (1 + class_boost + weapon_boost + frame_boost + barrier_boost) * (100 - monsters_data[monster][technique_attr_res]) / 100);
 }
 
-function get_battle_data(technique_name, tech_level, mst_value, player_class="Class", player_weapon="Weapon", player_frame="Frame", player_barrier="Barrier", player_difficulty="Normal", player_party_type="normal", experience_boost=0.0){
+function get_battle_data(technique_name, tech_level, mst_value, player_class, player_weapon, player_frame, player_barrier, player_difficulty, player_party_type, experience_boost){
     let technique_level = parseInt(tech_level);
     let player_mst = parseInt(mst_value);
     let monsters = [];
@@ -57,6 +57,7 @@ function populate_form(){
 
     document.getElementById("technique-level").value = 1;
     document.getElementById("mst-value").value = 10;
+    document.getElementById("experience-boost").value = 0;
     // TODO: Explore a cleaner way to do this
     for (let tech in techniques_info){
         tech_name_options.innerHTML += `<option value=${tech}>${tech}</option><br>`;
@@ -103,8 +104,11 @@ function calculate_damage(){
 
     let mst_value = document.getElementById("mst-value");
     mst_value.value = (mst_value.value < 0) ? 0 : mst_value.value;
+
+    let xp_boost = document.getElementById("experience-boost");
+    xp_boost.value = (xp_boost.value < 0) ? 0 : xp_boost.value;
     
-    let monster_list = get_battle_data(tech_name, tech_level.value, mst_value.value, player_class, player_weapon, player_frame, player_barrier, player_difficulty, player_party);
+    let monster_list = get_battle_data(tech_name, tech_level.value, mst_value.value, player_class, player_weapon, player_frame, player_barrier, player_difficulty, player_party, xp_boost.value);
     display_results(monster_list);
 }
 
