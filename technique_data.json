@@ -1,0 +1,290 @@
+{
+    "technique_data": {
+        "Foie": {
+            "resisted_by": "EFR",
+            "base15": 110,
+            "base30": -85,
+            "growth15": 50,
+            "growth30": 65,
+            "cost_base": 5,
+            "cost_growth": 1.3
+        },
+        "Gifoie": {
+            "resisted_by": "EFR",
+            "base15": 260,
+            "base30": 30,
+            "growth15": 26,
+            "growth30": 42,
+            "cost_base": 20,
+            "cost_growth": 0.37
+        },
+        "Rafoie": {
+            "resisted_by": "EFR",
+            "base15": 350,
+            "base30": 370,
+            "growth15": 22,
+            "growth30": 21,
+            "cost_base": 30,
+            "cost_growth": 0.25
+        },
+        "Barta": {
+            "resisted_by": "EIC",
+            "base15": 50,
+            "base30": -125,
+            "growth15": 50,
+            "growth30": 63,
+            "cost_base": 4,
+            "cost_growth": 1.2
+        },
+        "Gibarta": {
+            "resisted_by": "EIC",
+            "base15": 230,
+            "base30": 0,
+            "growth15": 24,
+            "growth30": 40,
+            "cost_base": 25,
+            "cost_growth": 0.5
+        },
+        "Rabarta": {
+            "resisted_by": "EIC",
+            "base15": 400,
+            "base30": 470,
+            "growth15": 19,
+            "growth30": 15,
+            "cost_base": 35,
+            "cost_growth": 0.2
+        },
+        "Zonde": {
+            "resisted_by": "ETH",
+            "base15": 80,
+            "base30": 5,
+            "growth15": 50,
+            "growth30": 55,
+            "cost_base": 6,
+            "cost_growth": 1.1
+        },
+        "Gizonde": {
+            "resisted_by": "ETH",
+            "base15": 200,
+            "base30": -30,
+            "growth15": 22,
+            "growth30": 38,
+            "cost_base": 25,
+            "cost_growth": 0.6
+        },
+        "Razonde": {
+            "resisted_by": "ETH",
+            "base15": 450,
+            "base30": 550,
+            "growth15": 16,
+            "growth30": 9,
+            "cost_base": 35,
+            "cost_growth": 0.3
+        },
+        "Grants": {
+            "resisted_by": "ELT",
+            "base15": 1180,
+            "base30": 1400,
+            "growth15": 75,
+            "growth30": 60,
+            "cost_base": 45,
+            "cost_growth": 1.1
+        }
+    },
+    "class_boosts": {
+        "Class": {
+            "TechniqueName": 0
+        },
+        "FOmar": {
+            "Gifoie": 0.3,
+            "Gibarta": 0.3,
+            "Gizonde": 0.3,
+            "Grants": 0.3
+        },
+        "FOmarl": {
+            "Grants": 0.5
+        },
+        "FOnewm": {
+            "Gifoie": 0.3,
+            "Gibarta": 0.3,
+            "Gizonde": 0.3
+        },
+        "FOnewearl": {
+            "Foie": 0.3,
+            "Barta": 0.3,
+            "Zonde": 0.3
+        }
+    },
+    "weapon_boosts": {
+        "Weapon": {
+            "TechniqueName": 0.0
+        },
+        "Club of Laconium": {
+            "Foie": 0.4
+        },
+        "Hildebear's Cane": {
+            "Foie": 0.3
+        },
+        "Mace of Adaman": {
+            "Barta": 0.4
+        },
+        "Club of Zumiuran": {
+            "Barta": 0.3
+        },
+        "Hildeblue's Cane": {
+            "Zonde": 0.4
+        },
+        "The Sigh of a God": {
+            "Zonde": 0.3
+        },
+        "Siren Glass Hammer": {
+            "Gibarta": 0.5
+        },
+        "Caduceus": {
+            "Grants": 0.2
+        },
+        "Mercurius Rod": {
+            "Grants": 0.3
+        },
+        "Dark Bridge": {
+            "Grants": 0.2
+        },
+        "Clio": {
+            "Grants": 0.1
+        },
+        "Fire Scepter: Agni": {
+            "Foie": 0.2,
+            "Gifoie": 0.2,
+            "Rafoie": 0.2
+        },
+        "Ice Staff: Dagon": {
+            "Barta": 0.2,
+            "Gibarta": 0.2,
+            "Rabarta": 0.2
+        },
+        "Storm Wand: Indra": {
+            "Zonde": 0.2,
+            "Gizonde": 0.2,
+            "Razonde": 0.2
+        },
+        "Summit Moon": {
+            "Foie": 0.3,
+            "Barta": 0.3,
+            "Zonde": 0.3
+        },
+        "Twinkle Star": {
+            "Foie": 0.2,
+            "Barta": 0.2,
+            "Zonde": 0.2
+        },
+        "Nei's Claw": {
+            "Foie": 0.2,
+            "Barta": 0.2,
+            "Zonde": 0.2
+        },
+        "Magical Piece": {
+            "Gifoie": 0.3,
+            "Gibarta": 0.3,
+            "Gizonde": 0.3
+        },
+        "Sorcerer's Cane": {
+            "Gifoie": 0.2,
+            "Gibarta": 0.2,
+            "Gizonde": 0.2
+        },
+        "Rika's Claw": {
+            "Gifoie": 0.2,
+            "Gibarta": 0.2,
+            "Gizonde": 0.2
+        },
+        "Psycho Wand": {
+            "Rafoie": 0.3,
+            "Rabarta": 0.3,
+            "Razonde": 0.3
+        },
+        "Prophets of Motav": {
+            "Rafoie": 0.2,
+            "Rabarta": 0.2,
+            "Razonde": 0.2
+        }
+    },
+    "frame_boosts": {
+        "Frame": {
+            "TechniqueName": 0
+        },
+        "Ignition Cloak": {
+            "Foie": 0.1,
+            "Gifoie": 0.1,
+            "Rafoie": 0.1
+        },
+        "Tempest Cloak": {
+            "Zonde": 0.1,
+            "Gizonde": 0.1,
+            "Razonde": 0.1
+        },
+        "Congeal Cloak": {
+            "Barta": 0.1,
+            "Gibarta": 0.1,
+            "Rabarta": 0.1
+        },
+        "Mother Garb": {
+            "Grants": 0.1
+        },
+        "Mother Garb+": {
+            "Grants": 0.3
+        },
+        "Select Cloak": {
+            "Grants": 0.1
+        }
+    },
+    "barrier_boosts": {
+        "Barrier": {
+            "TechniqueName": 0
+        },
+        "Foie Merge": {
+            "Foie": 0.3
+        },
+        "Gifoie Merge": {
+            "Gifoie": 0.3
+        },
+        "Rafoie Merge": {
+            "Rafoie": 0.3
+        },
+        "Zonde Merge": {
+            "Zonde": 0.3
+        },
+        "Gizonde Merge": {
+            "Gizonde": 0.3
+        },
+        "Razonde Merge": {
+            "Razonde": 0.3
+        },
+        "Three Seals": {
+            "Razonde": 0.3
+        },
+        "Barta Merge": {
+            "Barta": 0.3
+        },
+        "Gibarta Merge": {
+            "Gibarta": 0.3
+        },
+        "Rabarta Merge": {
+            "Rabarta": 0.3
+        },
+        "Red Merge": {
+            "Foie": 0.2,
+            "Gifoie": 0.2,
+            "Rafoie": 0.2
+        },
+        "Yellow Merge": {
+            "Zonde": 0.2,
+            "Gizonde": 0.2,
+            "Razonde": 0.2
+        },
+        "Blue Merge": {
+            "Barta": 0.2,
+            "Gibarta": 0.2,
+            "Rabarta": 0.2
+        }
+    }
+}
