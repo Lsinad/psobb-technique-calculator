@@ -3,7 +3,6 @@ import {techniques_info, class_boosts, weapon_boosts, frame_boosts, barrier_boos
 var config = { 
     monsters:[],
     sorted_by:"null",
-    sorted_type:"null",
 };
 
 function get_technique_power_per_level(technique_name, technique_level){
@@ -47,6 +46,7 @@ function get_battle_data(technique_name, tech_level, mst_value, player_class, pl
         let cost_each_kill = (hits_to_kill == Infinity) ? Infinity : (technique_cost * hits_to_kill).toFixed(2);
         config.monsters.push({monster_name:monster, monster_hp:monsters_data[monster]["HP"], damage_per_cast:damage_done, hits_required:hits_to_kill, experience_per_kill:xp_gained, experience_per_cast:xp_each_cast, tpcost_per_kill:cost_each_kill});
     }
+    config.sorted_by = "null";
     return config.monsters;
 }
 
@@ -169,8 +169,26 @@ function display_results(monster_list){
     });
 }
 
+function compare_monster_names(monster1, monster2){
+    if (monster1.monster_name > monster2.monster_name){
+        return 1;
+    }
+    if (monster1.monster_name < monster2.monster_name){
+        return -1;
+    }
+    return 0;
+}
+
 function sort_table(sort_selected){
-    console.log(`Sort Selected: ${sort_selected}`);
+    if (config.sorted_by == sort_selected){
+        config.monsters.reverse();
+    } else if (sort_selected == "monster_name"){
+        config.monsters.sort(compare_monster_names)
+    } else {
+        config.monsters.sort((monster1, monster2) => monster2[sort_selected] - monster1[sort_selected]);
+    } 
+    config.sorted_by = sort_selected
+    display_results(config.monsters)
 }
 
 if (document.readyState === "loading"){
