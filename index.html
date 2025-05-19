@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="main.css">
     <title>PSOBB Technique Damage Calculator</title>
 </head>
 <body>
@@ -11,8 +12,8 @@
     <script type="module" src="/psobb-functions.js"></script>
 
     <div class="container">
-        <div class="techcalc">
-            <table>
+        <div>
+            <table class="techcalc">
                 <tr>
                     <th>Technique Name</th>
                     <td>
@@ -82,26 +83,13 @@
                         <input type="number" id="experience-boost"/>%
                     </td>
                 </tr>
-
-                <tr>
-                    <td style="text-align: right;">
-                        <button id="calculate-submit">Calculate</button>
-                    </td>
-                </tr>
             </table>
         </div>
+
+        <button id="calculate-submit">Calculate</button>
         
-        <div class="results">
-            <table style="text-align: center;" id="results-table">
-                <tr>
-                    <th>Monster Name</th>
-                    <th>HP</th>
-                    <th>XP</th>
-                    <th>Damage per Cast</th>
-                    <th>Hits to Kill</th>
-                    <th>TP Cost per Kill</th>
-                    <th>XP per Cast</th>
-                </tr>
+        <div>
+            <table class="sticky results" style="text-align: center;" id="results-table">
             </table>
         </div>
     </div>
