@@ -1,5 +1,5 @@
 body {
-    background-color: #f4f1f1;
+    background-color: black;
     font-family: sans-serif;
 }
 
@@ -43,10 +43,12 @@ table {
     font-size: large;
     text-align: left;
     padding-right: 10px;
+    color: white;
 }
 
 .techcalc tr {
-    border: 1px solid black;
+    border: 1px solid white;
+    background-color: #003049;
 }
 
 button {
@@ -61,6 +63,7 @@ button {
     color: white;
     border-spacing: 0px;
     margin-bottom: 5%;
+    text-align: center;
 }
 
 .results th{
