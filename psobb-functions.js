@@ -39,7 +39,7 @@ function get_battle_data(technique_name, tech_level, mst_value, player_class, pl
     config.monsters = [];
 
     for (let monster in monsters_data){
-        let xp_gained = monsters_data[monster]["XP"] * (1.0 + (experience_boost/100));
+        let xp_gained = Math.floor(monsters_data[monster]["XP"] * (1.0 + (experience_boost/100)));
         let damage_done = get_damage_per_hit(player_mst, technique_base_power, class_boost, weapon_boost, frame_boost, barrier_boost, monsters_data, monster, technique_attr_res);
         let hits_to_kill = (damage_done == 0) ? Infinity : Math.ceil(monsters_data[monster]["HP"] / damage_done);
         let xp_each_cast = (hits_to_kill == Infinity) ? 0 : (xp_gained / hits_to_kill).toFixed(2); 
