@@ -59,10 +59,13 @@ function populate_form(){
     let episode_options = document.getElementById("player-episode");
     let difficulty_options = document.getElementById("player-difficulty");
     let party_options = document.getElementById("party-type");
+    let technique_level_options = document.getElementById("technique-level");
+    let mst_options = document.getElementById("mst-value");
+    let experience_options = document.getElementById("experience-boost");
 
-    document.getElementById("technique-level").value = 1;
-    document.getElementById("mst-value").value = 10;
-    document.getElementById("experience-boost").value = 0;
+    technique_level_options.value = 1;
+    mst_options.value = 10;
+    experience_options.value = 0;
 
     // TODO: Explore a cleaner way to do this
     for (let tech in techniques_info){
@@ -96,18 +99,29 @@ function populate_form(){
     for (let party in monster_data["Episode 1"]["Normal"]){
         party_options.innerHTML += `<option value=\"${party}\">${party}</option><br>`;
     }
-
-    document.getElementById("calculate-submit").addEventListener("click", calculate_damage);
-    document.getElementById("technique-level").addEventListener("change", (evnt) => {
+    
+    tech_name_options.addEventListener("change", calculate_damage);
+    class_options.addEventListener("change", calculate_damage);
+    weapon_options.addEventListener("change", calculate_damage);
+    frame_options.addEventListener("change", calculate_damage);
+    barrier_options.addEventListener("change", calculate_damage);
+    episode_options.addEventListener("change", calculate_damage);
+    difficulty_options.addEventListener("change", calculate_damage);
+    party_options.addEventListener("change", calculate_damage);
+    technique_level_options.addEventListener("change", (evnt) => {
         if (evnt.target.value > 30) { evnt.target.value = 30; }
         if (evnt.target.value < 1) { evnt.target.value = 1; }
+        calculate_damage();
     });
-    document.getElementById("mst-value").addEventListener("change", (evnt) => {
+    mst_options.addEventListener("change", (evnt) => {
         if (evnt.target.value < 0) { evnt.target.value = 0; }
+        calculate_damage();
     });
-    document.getElementById("experience-boost").addEventListener("change", (evnt) =>{
+    experience_options.addEventListener("change", (evnt) =>{
         if (evnt.target.value < 0) { evnt.target.value = 0; }
+        calculate_damage();
     });
+    calculate_damage();
 }
 
 function calculate_damage(){
