@@ -2,8 +2,8 @@ var json_tech_data;
 var json_monster_data;
 
 try{
-    const tech_data_response = await fetch("technique_data.json");
-    const monster_data_response = await fetch("monster_data.json");
+    const tech_data_response = await fetch("/resources/technique_data.json");
+    const monster_data_response = await fetch("/resources/monster_data.json");
     if (!tech_data_response.ok || !monster_data_response.ok){
         throw new Error(`Technique Data Status: ${tech_data_response.status}\nMonster Data Status: ${monster_data_response.status}\n`);
     }

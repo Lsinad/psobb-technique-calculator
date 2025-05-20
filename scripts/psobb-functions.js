@@ -1,4 +1,4 @@
-import {techniques_info, class_boosts, weapon_boosts, frame_boosts, barrier_boosts, monster_data} from "/psobb-data.js";
+import {techniques_info, class_boosts, weapon_boosts, frame_boosts, barrier_boosts, monster_data} from "/scripts/psobb-data.js";
 
 var config = { 
     monsters:[],
@@ -147,13 +147,13 @@ function calculate_damage(){
 function display_results(monster_list){
     let results_table = document.getElementById("results-table");
 
-    results_table.innerHTML = "<tr><th id=\"name-sort\">Monster Name<img src=\"/sort-icon.svg\"></th>" +
-                              "<th id=\"hp-sort\">HP<img src=\"/sort-icon.svg\"></th>" +
-                              "<th id=\"xp-sort\">XP<img src=\"/sort-icon.svg\"></th>" +
-                              "<th id=\"dpc-sort\">Damage per Cast<img src=\"/sort-icon.svg\"></th>" +
-                              "<th id=\"hit-sort\">Hits to Kill<img src=\"/sort-icon.svg\"></th>" + 
-                              "<th id=\"cost-sort\">TP Cost per Kill<img src=\"/sort-icon.svg\"></th>" +
-                              "<th id=\"xpp-sort\">XP per Cast<img src=\"/sort-icon.svg\"></th></tr>";
+    results_table.innerHTML = "<tr><th id=\"name-sort\">Monster Name<img src=\"/resources/sort-icon.svg\"></th>" +
+                              "<th id=\"hp-sort\">HP<img src=\"/resources/sort-icon.svg\"></th>" +
+                              "<th id=\"xp-sort\">XP<img src=\"/resources/sort-icon.svg\"></th>" +
+                              "<th id=\"dpc-sort\">Damage per Cast<img src=\"/resources/sort-icon.svg\"></th>" +
+                              "<th id=\"hit-sort\">Hits to Kill<img src=\"/resources/sort-icon.svg\"></th>" + 
+                              "<th id=\"cost-sort\">TP Cost per Kill<img src=\"/resources/sort-icon.svg\"></th>" +
+                              "<th id=\"xpp-sort\">XP per Cast<img src=\"/resources/sort-icon.svg\"></th></tr>";
 
     for (let iteration = 0; iteration < monster_list.length; iteration++){
         let monster = monster_list[iteration];
