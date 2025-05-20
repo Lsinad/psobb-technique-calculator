@@ -1,4 +1,4 @@
-import {techniques_info, class_boosts, weapon_boosts, frame_boosts, barrier_boosts, episode1_monster_data} from "/psobb-data.js";
+import {techniques_info, class_boosts, weapon_boosts, frame_boosts, barrier_boosts, monster_data} from "/psobb-data.js";
 
 var config = { 
     monsters:[],
@@ -25,7 +25,7 @@ function get_damage_per_hit(player_mst, technique_base_power, class_boost, weapo
     return Math.floor((parseInt(player_mst) + technique_base_power) * 0.2 * (1 + class_boost + weapon_boost + frame_boost + barrier_boost) * (100 - monsters_data[monster][technique_attr_res]) / 100);
 }
 
-function get_battle_data(technique_name, tech_level, mst_value, player_class, player_weapon, player_frame, player_barrier, player_difficulty, player_party_type, experience_boost){
+function get_battle_data(technique_name, tech_level, mst_value, player_class, player_weapon, player_frame, player_barrier, player_episode, player_difficulty, player_party_type, experience_boost){
     let technique_level = parseInt(tech_level);
     let player_mst = parseInt(mst_value);
     let technique_base_power = get_technique_power_per_level(technique_name, technique_level);
@@ -34,7 +34,7 @@ function get_battle_data(technique_name, tech_level, mst_value, player_class, pl
     let weapon_boost = get_boost_if_defined(weapon_boosts, player_weapon, technique_name);
     let frame_boost = get_boost_if_defined(frame_boosts, player_frame, technique_name);
     let barrier_boost = get_boost_if_defined(barrier_boosts, player_barrier, technique_name);
-    let monsters_data = episode1_monster_data[player_difficulty][player_party_type];
+    let monsters_data = monster_data[player_episode][player_difficulty][player_party_type];
     let technique_attr_res = techniques_info[technique_name]["resisted_by"];
     config.monsters = [];
 
@@ -56,6 +56,7 @@ function populate_form(){
     let weapon_options = document.getElementById("player-weapon");
     let frame_options = document.getElementById("player-frame");
     let barrier_options = document.getElementById("player-barrier");
+    let episode_options = document.getElementById("player-episode");
     let difficulty_options = document.getElementById("player-difficulty");
     let party_options = document.getElementById("party-type");
 
@@ -84,11 +85,15 @@ function populate_form(){
         barrier_options.innerHTML += `<option value=\"${barrier}\">${barrier}</option><br>`;
     }
 
-    for (let difficulty in episode1_monster_data){
+    for (let episode in monster_data){
+        episode_options.innerHTML += `<option value=\"${episode}\">${episode}</option><br>`;
+    }
+
+    for (let difficulty in monster_data["Episode 1"]){
         difficulty_options.innerHTML += `<option value=\"${difficulty}\">${difficulty}</option><br>`;
     }
 
-    for (let party in episode1_monster_data["Normal"]){
+    for (let party in monster_data["Episode 1"]["Normal"]){
         party_options.innerHTML += `<option value=\"${party}\">${party}</option><br>`;
     }
 
@@ -111,6 +116,7 @@ function calculate_damage(){
     let player_weapon = document.getElementById("player-weapon").value;
     let player_frame = document.getElementById("player-frame").value;
     let player_barrier = document.getElementById("player-barrier").value;
+    let player_episode = document.getElementById("player-episode").value;
     let player_difficulty = document.getElementById("player-difficulty").value;
     let player_party = document.getElementById("party-type").value;
 
@@ -120,7 +126,7 @@ function calculate_damage(){
 
     let xp_boost = document.getElementById("experience-boost").value;
     
-    let monster_list = get_battle_data(tech_name, tech_level, mst_value, player_class, player_weapon, player_frame, player_barrier, player_difficulty, player_party, xp_boost);
+    let monster_list = get_battle_data(tech_name, tech_level, mst_value, player_class, player_weapon, player_frame, player_barrier, player_episode, player_difficulty, player_party, xp_boost);
     display_results(monster_list);
 }
 
