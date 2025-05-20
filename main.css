@@ -36,24 +36,17 @@ table {
 
 .techcalc{
     margin-top: 2%;
-}
-
-.techcalc{
     font-weight: normal;
     font-size: large;
     text-align: left;
     padding-right: 10px;
     color: white;
+    margin-bottom: 5px;
 }
 
 .techcalc tr {
     border: 1px solid white;
     background-color: #003049;
-}
-
-button {
-    padding: 8px 24px;
-    margin-bottom: 10px;
 }
 
 .results{
