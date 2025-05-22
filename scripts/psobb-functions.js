@@ -22,7 +22,7 @@ function get_boost_if_defined(boost_type, player_data, technique_name){
 }
 
 function get_damage_per_hit(player_mst, technique_base_power, class_boost, weapon_boost, frame_boost, barrier_boost, monsters_data, monster, technique_attr_res){
-    return Math.floor((parseInt(player_mst) + technique_base_power) * 0.2 * (1 + class_boost + weapon_boost + frame_boost + barrier_boost) * (100 - monsters_data[monster][technique_attr_res]) / 100);
+    return Math.floor((player_mst + technique_base_power) * 0.2 * (1 + class_boost + weapon_boost + frame_boost + barrier_boost) * (100 - monsters_data[monster][technique_attr_res]) / 100);
 }
 
 function get_battle_data(technique_name, tech_level, mst_value, player_class, player_weapon, player_frame, player_barrier, player_episode, player_difficulty, player_party_type, experience_boost){
@@ -43,7 +43,7 @@ function get_battle_data(technique_name, tech_level, mst_value, player_class, pl
         let damage_done = get_damage_per_hit(player_mst, technique_base_power, class_boost, weapon_boost, frame_boost, barrier_boost, monsters_data, monster, technique_attr_res);
         let hits_to_kill = (damage_done == 0) ? Infinity : Math.ceil(monsters_data[monster]["HP"] / damage_done);
         let xp_each_cast = (hits_to_kill == Infinity) ? 0 : (xp_gained / hits_to_kill).toFixed(2); 
-        let cost_each_kill = (hits_to_kill == Infinity) ? Infinity : (technique_cost * hits_to_kill).toFixed(2);
+        let cost_each_kill = (hits_to_kill == Infinity) ? Infinity : Math.floor(technique_cost * hits_to_kill);
         config.monsters.push({monster_name:monster, monster_hp:monsters_data[monster]["HP"], damage_per_cast:damage_done, hits_required:hits_to_kill, experience_per_kill:xp_gained, experience_per_cast:xp_each_cast, tpcost_per_kill:cost_each_kill});
     }
     config.sorted_by = "null";
