@@ -25,6 +25,21 @@ function get_damage_per_hit(player_mst, technique_base_power, class_boost, weapo
     return Math.floor((player_mst + technique_base_power) * 0.2 * (1 + class_boost + weapon_boost + frame_boost + barrier_boost) * (100 - monsters_data[monster][technique_attr_res]) / 100);
 }
 
+/**
+ * Summary. Determines damage done, hits required to kill, total tp cost to kill, and experience per cast.
+ * @param {string} technique_name 
+ * @param {string} tech_level 
+ * @param {string} mst_value 
+ * @param {string} player_class 
+ * @param {string} player_weapon 
+ * @param {string} player_frame 
+ * @param {string} player_barrier 
+ * @param {string} player_episode 
+ * @param {string} player_difficulty 
+ * @param {string} player_party_type 
+ * @param {string} experience_boost 
+ * @returns {Array<Object>} A list containing each monster with the calculated data, from the chosen episode and filtered through difficulty and party type chosen.
+ */
 function get_battle_data(technique_name, tech_level, mst_value, player_class, player_weapon, player_frame, player_barrier, player_episode, player_difficulty, player_party_type, experience_boost){
     let technique_level = parseInt(tech_level);
     let player_mst = parseInt(mst_value);
@@ -51,6 +66,7 @@ function get_battle_data(technique_name, tech_level, mst_value, player_class, pl
 }
 
 function populate_form(){
+    // Get form elements
     let tech_name_options = document.getElementById("technique-name");
     let class_options = document.getElementById("player-class");
     let weapon_options = document.getElementById("player-weapon");
@@ -63,6 +79,7 @@ function populate_form(){
     let mst_options = document.getElementById("mst-value");
     let experience_options = document.getElementById("experience-boost");
 
+    // Set an initial value to the form's number inputs for initial calculation
     technique_level_options.value = 1;
     mst_options.value = 10;
     experience_options.value = 0;
@@ -100,6 +117,7 @@ function populate_form(){
         party_options.innerHTML += `<option value=\"${party}\">${party}</option><br>`;
     }
     
+    // Helps determine when a change has occurred in the form. Action: Run calculate_damage function
     tech_name_options.addEventListener("change", calculate_damage);
     class_options.addEventListener("change", calculate_damage);
     weapon_options.addEventListener("change", calculate_damage);
@@ -125,6 +143,7 @@ function populate_form(){
 }
 
 function calculate_damage(){
+    // Get form elements' values
     let tech_name = document.getElementById("technique-name").value;
     let player_class = document.getElementById("player-class").value;
     let player_weapon = document.getElementById("player-weapon").value;
@@ -133,20 +152,21 @@ function calculate_damage(){
     let player_episode = document.getElementById("player-episode").value;
     let player_difficulty = document.getElementById("player-difficulty").value;
     let player_party = document.getElementById("party-type").value;
-
     let tech_level = document.getElementById("technique-level").value;
-
     let mst_value = document.getElementById("mst-value").value;
-
     let xp_boost = document.getElementById("experience-boost").value;
     
     let monster_list = get_battle_data(tech_name, tech_level, mst_value, player_class, player_weapon, player_frame, player_barrier, player_episode, player_difficulty, player_party, xp_boost);
     display_results(monster_list);
 }
 
+/**
+ * Summary. Construct table HTML using monster data
+ * @param {Array<Object>} monster_list 
+ */
 function display_results(monster_list){
     let results_table = document.getElementById("results-table");
-
+    // Table header construction
     results_table.innerHTML = "<tr><th id=\"name-sort\">Monster Name<img src=\"/resources/sort-icon.svg\"></th>" +
                               "<th id=\"hp-sort\">HP<img src=\"/resources/sort-icon.svg\"></th>" +
                               "<th id=\"xp-sort\">XP<img src=\"/resources/sort-icon.svg\"></th>" +
@@ -154,7 +174,7 @@ function display_results(monster_list){
                               "<th id=\"hit-sort\">Hits to Kill<img src=\"/resources/sort-icon.svg\"></th>" + 
                               "<th id=\"cost-sort\">TP Cost per Kill<img src=\"/resources/sort-icon.svg\"></th>" +
                               "<th id=\"xpp-sort\">XP per Cast<img src=\"/resources/sort-icon.svg\"></th></tr>";
-
+    // Populate table with monster data
     for (let iteration = 0; iteration < monster_list.length; iteration++){
         let monster = monster_list[iteration];
         results_table.innerHTML += `<tr><td>${monster.monster_name}</td>` +
@@ -165,7 +185,7 @@ function display_results(monster_list){
                                    `<td>${monster.tpcost_per_kill}</td>` +
                                    `<td>${monster.experience_per_cast}</td></tr>`;
     }
-
+    // Make table headers clickable for sorting
     document.getElementById("name-sort").addEventListener("click", function(){
         sort_table("monster_name");
     });
@@ -189,6 +209,12 @@ function display_results(monster_list){
     });
 }
 
+/**
+ * Summary. Used for sorting operations, using monster names as key.
+ * @param {string} monster1 
+ * @param {string} monster2 
+ * @returns {number}
+ */
 function compare_monster_names(monster1, monster2){
     if (monster1.monster_name > monster2.monster_name){
         return 1;
@@ -199,18 +225,23 @@ function compare_monster_names(monster1, monster2){
     return 0;
 }
 
+/**
+ * Summary. Sort the table by the given key and display results.
+ * @param {string} sort_selected Sort key, obtained from value clicked by user.
+ */
 function sort_table(sort_selected){
     if (config.sorted_by == sort_selected){
         config.monsters.reverse();
     } else if (sort_selected == "monster_name"){
-        config.monsters.sort(compare_monster_names)
+        config.monsters.sort(compare_monster_names);
     } else {
         config.monsters.sort((monster1, monster2) => monster2[sort_selected] - monster1[sort_selected]);
     } 
-    config.sorted_by = sort_selected
-    display_results(config.monsters)
+    config.sorted_by = sort_selected;
+    display_results(config.monsters);
 }
 
+// Wait for page load to populate form.
 if (document.readyState === "loading"){
     document.addEventListener("DOMContentLoaded", populate_form);
 } else {
